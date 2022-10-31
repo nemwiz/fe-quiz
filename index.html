@@ -78,6 +78,10 @@
             dialogElement.remove();
         }
 
+        dialogElement.onclose = function () {
+            dialogElement.remove();
+        }
+
         dialogElement.appendChild(dialogTextElement);
         dialogActionButtonsContainer.appendChild(actionButton1Element);
         dialogActionButtonsContainer.appendChild(actionButton2Element);
