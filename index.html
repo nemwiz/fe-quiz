@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="index.css">
+
+</head>
+<body>
+
+<button onclick="openDialog(
+    'Are you sure you want to continue?',
+    'Yes',
+    'No',
+    onDialogActionSelected
+)">
+    Click me
+</button>
+
+<output id="dialog-selection"></output>
+
+<script>
+
+    function openDialog(dialogText, actionButton1Text, actionButton2Text, actionButtonCallback) {
+        if (!dialogText) {
+            console.error('Please provide the text for this dialog.')
+        }
+
+        if (!actionButton1Text || !actionButton2Text) {
+            console.error('Please provide labels for dialog action buttons!')
+        }
+
+        if (!actionButtonCallback) {
+            console.error('For the dialog to work and return results, you need to provide a callback function.')
+        }
+
+        const dialogElement = document.createElement('dialog');
+
+        const dialogTextElement = document.createElement('p');
+        dialogElement.innerText = dialogText;
+
+        const actionButton1Element = document.createElement('button');
+        const actionButton2Element = document.createElement('button');
+
+        actionButton1Element.innerText = actionButton1Text;
+        actionButton2Element.innerText = actionButton2Text;
+
+        actionButton1Element.onclick = function () {
+            actionButtonCallback(actionButton1Text);
+            dialogElement.close();
+        }
+
+        actionButton2Element.onclick = function () {
+            actionButtonCallback(actionButton2Text);
+            dialogElement.close();
+        }
+
+        dialogElement.appendChild(dialogTextElement);
+        dialogElement.appendChild(actionButton1Element);
+        dialogElement.appendChild(actionButton2Element);
+        document.body.appendChild(dialogElement);
+
+        dialogElement.showModal();
+
+    }
+
+    function onDialogActionSelected(actionSelected) {
+        const dialogSelection = document.getElementById('dialog-selection');
+        dialogSelection.innerText = `You just clicked "${actionSelected}"`;
+    }
+
+</script>
+
+</body>
+</html>
