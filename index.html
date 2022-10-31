@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Quiz</title>
-    <link rel="stylesheet" href="index.css">
+    <title>Simple reusable dialog</title>
 
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
 
@@ -21,26 +21,45 @@
 
 <script>
 
+    /*
+    ** A function that creates a modal dialog
+    *  dialogText -> Text that will be shown in the dialog
+    *  actionButton1Text -> Text label for the first action button inside the dialog
+    *  actionButton2Text -> Text label for the second action button inside the dialog
+    *  actionButtonCallback -> Callback function that executes when on of the action buttons is clicked
+    */
+
     function openDialog(dialogText, actionButton1Text, actionButton2Text, actionButtonCallback) {
         if (!dialogText) {
-            console.error('Please provide the text for this dialog.')
+            console.error('Please provide the text for this dialog.');
+            return;
         }
 
         if (!actionButton1Text || !actionButton2Text) {
-            console.error('Please provide labels for dialog action buttons!')
+            console.error('Please provide labels for dialog action buttons!');
+            return;
         }
 
         if (!actionButtonCallback) {
-            console.error('For the dialog to work and return results, you need to provide a callback function.')
+            console.error('For the dialog to work and return results, you need to provide a callback function.');
+            return;
         }
 
         const dialogElement = document.createElement('dialog');
+        dialogElement.classList.add('dialog-container');
 
         const dialogTextElement = document.createElement('p');
-        dialogElement.innerText = dialogText;
+        dialogTextElement.innerText = dialogText;
+
+        const dialogActionButtonsContainer = document.createElement('div');
+        dialogActionButtonsContainer.classList.add('dialog-action-buttons-container');
 
         const actionButton1Element = document.createElement('button');
+        actionButton1Element.classList.add('dialog-button');
+        actionButton1Element.classList.add('confirm-button');
         const actionButton2Element = document.createElement('button');
+        actionButton2Element.classList.add('dialog-button');
+        actionButton2Element.classList.add('cancel-button');
 
         actionButton1Element.innerText = actionButton1Text;
         actionButton2Element.innerText = actionButton2Text;
@@ -48,20 +67,22 @@
         actionButton1Element.onclick = function () {
             actionButtonCallback(actionButton1Text);
             dialogElement.close();
+            dialogElement.remove();
         }
 
         actionButton2Element.onclick = function () {
             actionButtonCallback(actionButton2Text);
             dialogElement.close();
+            dialogElement.remove();
         }
 
         dialogElement.appendChild(dialogTextElement);
-        dialogElement.appendChild(actionButton1Element);
-        dialogElement.appendChild(actionButton2Element);
+        dialogActionButtonsContainer.appendChild(actionButton1Element);
+        dialogActionButtonsContainer.appendChild(actionButton2Element);
+        dialogElement.appendChild(dialogActionButtonsContainer)
         document.body.appendChild(dialogElement);
 
         dialogElement.showModal();
-
     }
 
     function onDialogActionSelected(actionSelected) {
