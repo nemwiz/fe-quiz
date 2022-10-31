@@ -8,16 +8,18 @@
 </head>
 <body>
 
-<button onclick="openDialog(
+<div class="main-container">
+    <button onclick="openDialog(
     'Are you sure you want to continue?',
     'Yes',
     'No',
     onDialogActionSelected
-)">
-    Click me
-</button>
+)" class="landing-page-button">
+        Click me
+    </button>
 
-<output id="dialog-selection"></output>
+    <div id="dialog-selection"></div>
+</div>
 
 <script>
 

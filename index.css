@@ -8,6 +8,11 @@ body {
     --standard-border-radius: 10px;
 }
 
+.main-container {
+    margin: 20px 0 0 0;
+    text-align: center;
+}
+
 .dialog-container {
     user-select: none;
     display: flex;
@@ -32,7 +37,7 @@ body {
     width: 100%;
 }
 
-.dialog-action-buttons-container .dialog-button {
+.dialog-action-buttons-container .dialog-button, .landing-page-button {
     background-color: #2094a9;
     border: none;
     color: white;
@@ -43,6 +48,11 @@ body {
     font-size: 1rem;
     border-radius: var(--standard-border-radius);
     transition: transform 0.3s;
+}
+
+.landing-page-button {
+    background-color: #0e6fad;
+    margin: 0 0 20px 0;
 }
 
 .dialog-action-buttons-container .dialog-button:hover {
